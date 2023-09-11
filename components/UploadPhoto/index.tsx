@@ -38,7 +38,7 @@ export default function SamplePhotosUploader(props: any): ReactElement {
                     inputContent="Nhấn vào đây và tải ảnh"
                     styles={{preview: {width: '100%', position: 'absolute'}, submitButton: {display: 'none'}, inputLabelWithFiles : {display: 'none'}, dropzone: {padding : '0 30px', margin: '8px 0', overflow: 'hidden'}}}
                 />
-                <span onClick={RemoveImg} style={{position: 'absolute',zIndex: '222',top: '33%',left: '85%',padding: '12px',cursor: 'pointer',}}>✕</span>
+                <span onClick={RemoveImg} style={{position: 'absolute',zIndex: '222',width: '30px', height: '30px',top: '33%',left: '85%',padding: '12px',cursor: 'pointer',}}>✕</span>
             </div>
         )
     }

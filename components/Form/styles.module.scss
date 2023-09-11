@@ -6,8 +6,8 @@
 .Wrapper {
   width: 100vw;
   height: fit-content;
-  margin: 15px $offsetSideSpace 180px;
-  padding: 40px $sideSpace 0;
+  margin: 0;
+  padding:40px $sideSpace 0;
   color: $grayBorder;
   @include breakpointTabletL {
     width: 100vw;
@@ -15,6 +15,12 @@
   .titlePages{
     font-weight: 700;
     margin: 0 16px;
+  }
+  .contactForm{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   .title {
     display: flex;
@@ -24,6 +30,9 @@
     line-height: 1.45;
     margin-top: 16px;
     margin-bottom: 32px;
+    span{
+      text-align: center;
+    }
   }
   hr {
     border : 0.5px #E4E6EC solid;
@@ -47,6 +56,10 @@
     display: flex;
     gap: 8px;
     margin: 8px 0;
+    justify-self: start;
+    input {
+      width: 30px;
+    }
   }
   .dropImage{
     border: 1px solid #E4E6EC;
@@ -104,6 +117,7 @@
     @include font($rubik, 9px, $sunsetOrange, 400, 14px, 0.2px);
   }
   .imageWrapper{
+      width: 40%;
       display: flex;
       justify-content: center;
 }

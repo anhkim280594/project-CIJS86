@@ -10,6 +10,7 @@ import InputSuggestion from '../InputSuggestion'
 import CheckInfo from './CheckInfo'
 // import DropImage from '../DropImage'
 import SamplePhotosUploader from '../../components/UploadPhoto'
+import BackIcon from '../../icons/BackIcon'
 
 export default function Form(): ReactElement {
   // const router = useRouter()
@@ -76,7 +77,7 @@ export default function Form(): ReactElement {
   const [anhChup39, setAnhChup39] = useState([])
   const [fileAnhChup39, setFileAnhChup39] = useState([])
   // const [commitmentType, setCommitmentType] = useState(router.query.commitment)
- 
+
   // useEffect(() => {
   //   setCommitmentType(router.query.commitment)
   // }, [router.query.commitment])
@@ -94,8 +95,8 @@ export default function Form(): ReactElement {
     validateAmount()
     validateFamilyName()
     validateFamilyPhone()
-    const isValid = validateName() 
-      validatePhone() &&
+    const isValid = validateName()
+    validatePhone() &&
       validateEmail() &&
       validateJob() &&
       validateCompany() &&
@@ -107,7 +108,7 @@ export default function Form(): ReactElement {
     if (isValid) {
       setLoading(true)
       try {
-        const response = await fetch(`https://admin-api.stg.rootopia.vn/requests/webhook/v3-form-submission`,
+        const response = await fetch(`https://envwnz849j7j.x.pipedream.net`,
           {
             method: 'POST',
             headers: {
@@ -116,46 +117,25 @@ export default function Form(): ReactElement {
               'Accept-Language': 'vi',
             },
             body: JSON.stringify({
-              q91_school: school,
               school,
-              q20_name: name,
               name,
-              q4_email: email,
               email,
-              q5_phone: {full: phone},
               phone,
-              q111_job: job,
               job,
-              q113_company: company,
               company,
-              q42_address: address,
               address,
-              q68_kidName: kidName,
               kidName,
-              q73_kidPhone: {full: kidPhone},
               kidPhone,
-              q25_amount: amount,
               amount,
-              q10_duration: duration,
               duration,
-              q125_ambassador_code: ambassador_code,
               ambassador_code,
-              q63_familyAre: familyAre,
               familyAre,
-              q61_familyName: familyName,
               familyName,
-              q62_familyPhone: {full: familyPhone},
               familyPhone,
-              q65_whoAreYou: whoAreYou,
               whoAreYou,
-              q139_studyType: studyType,
               studyType,
-              q80_isUsed: isUsed,
               isUsed,
-              q114_bankingCards: bankingCards,
               bankingCards,
-              // q137_commitmentType: commitmentType,
-              // commitmentType,
               anhChup,
               anhChup135,
               anhBan,
@@ -497,17 +477,21 @@ export default function Form(): ReactElement {
               </div>
             </div>
             <Button
-                text={'Tiếp tục'}
-                className={styles.submitBtn}
-                onClick={onClickNextPage2}
-                disabled={false}
-                loading={false}
+              text={'Tiếp tục'}
+              className={styles.submitBtn}
+              onClick={onClickNextPage2}
+              disabled={false}
+              loading={false}
             />
           </div>
           <div style={{ display: isShowPage2 ? 'block' : 'none' }}>
             <div style={{ display: 'flex' }}>
-              <div style={{ width: '24px' }}>
-                <img src="/backIcon.png" alt="back-icon" style={{ width: '100%', cursor: 'pointer' }} onClick={onClickBackPage1} />
+              <div style={{ width: '18px', cursor: 'pointer', margin: '0 8px'}}>
+                <span
+                  onClick={onClickBackPage1}
+                >
+                  <BackIcon color="#080C21" />
+                </span>
               </div>
               <h3 className={styles.titlePages}>Đăng ký bảo trợ</h3>
             </div>
@@ -670,14 +654,18 @@ export default function Form(): ReactElement {
                 onClick={onClickNextPage3}
                 disabled={false}
                 loading={false}
-            />
+              />
             </div>
           </div >
           <div style={{ display: isShowPage3 ? 'block' : 'none' }}>
             <div>
               <div style={{ display: 'flex' }}>
-                <div style={{ width: '24px' }}>
-                  <img src="/backIcon.png" alt="back-icon" style={{ width: '100%', cursor: 'pointer' }} onClick={onClickBackPage2} />
+                <div style={{ width: '18px', cursor: 'pointer', margin: '0 8px'}}>
+                <span
+                  onClick={onClickBackPage2}
+                >
+                  <BackIcon color="#080C21" />
+                </span>
                 </div>
                 <h3 className={styles.titlePages}>Đăng ký bảo trợ</h3>
               </div>
@@ -747,7 +735,7 @@ export default function Form(): ReactElement {
                       </div>
                     </div>
                     <div>
-                      <h3  style={{ marginBottom: '8px' }}> Thông tin học phí</h3>
+                      <h3 style={{ marginBottom: '8px' }}> Thông tin học phí</h3>
                     </div>
                     <div>
                       <label>Trường học/ Trung tâm giáo dục bạn đăng ký</label>
@@ -825,7 +813,7 @@ export default function Form(): ReactElement {
                 isShowInputInfoSeft ?
                   <div style={{ display: isShowInputInfoSeft ? 'block' : 'none' }}>
                     <div>
-                      <h3  style={{ marginBottom: '8px' }}> Thông tin học phí</h3>
+                      <h3 style={{ marginBottom: '8px' }}> Thông tin học phí</h3>
                     </div>
                     <div>
                       <label>Trường học/ Trung tâm giáo dục bạn đăng ký</label>
@@ -961,7 +949,7 @@ export default function Form(): ReactElement {
                       </div>
                     </div>
                     <div>
-                      <h3  style={{ marginBottom: '8px' }}> Thông tin học phí</h3>
+                      <h3 style={{ marginBottom: '8px' }}> Thông tin học phí</h3>
                     </div>
                     <div>
                       <label>Trường học/ Trung tâm giáo dục bạn đăng ký</label>
@@ -1097,13 +1085,17 @@ export default function Form(): ReactElement {
                 onClick={onClickNextPage4}
                 disabled={false}
                 loading={false}
-            />
+              />
             </div>
           </div>
           <div style={{ display: isShowPage4 ? 'block' : 'none' }}>
             <div style={{ display: 'flex' }}>
-              <div style={{ width: '24px' }}>
-                <img src="/backIcon.png" alt="back-icon" style={{ width: '100%', cursor: 'pointer' }} onClick={onClickBackPage3} />
+              <div style={{ width: '18px', cursor: 'pointer',margin: '0 8px'}}>
+              <span
+                  onClick={onClickBackPage3}
+                >
+                  <BackIcon color="#080C21" />
+                </span>
               </div>
               <h3 className={styles.titlePages}>Kiểm tra thông tin</h3>
 
