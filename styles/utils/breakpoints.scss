@@ -1,0 +1,56 @@
+$breakpointsView: (
+  'mobileS': 355px,
+  'mobileM': 385px,
+  'tablet': 768px,
+  'tabletL': 912px,
+  'desktop': 1170px,
+);
+
+@mixin breakpoint($view) {
+  @media (min-width: map-get($breakpointsView, $view)) {
+    @content;
+  }
+}
+
+@mixin breakpointDown($view) {
+  @media (max-width: map-get($breakpointsView, $view) - 1) {
+    @content;
+  }
+}
+
+@mixin breakpointMobileS {
+  @include breakpointDown('mobileS') {
+    @content;
+  }
+}
+
+@mixin breakpointMobileM {
+  @include breakpointDown('mobileM') {
+    @content;
+  }
+}
+
+@mixin breakpointMobileL {
+  @include breakpointDown('tablet') {
+    @content;
+  }
+}
+
+@mixin breakpointTablet {
+  @include breakpointDown('desktop') {
+    @content;
+  }
+}
+
+@mixin breakpointTabletL {
+  @include breakpoint('tabletL') {
+    @content;
+  }
+}
+
+
+@mixin breakpointDesktop {
+  @include breakpoint('desktop') {
+    @content;
+  }
+}

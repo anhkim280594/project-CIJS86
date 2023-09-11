@@ -1,0 +1,1155 @@
+
+import React, { ReactElement, useState, useRef } from 'react'
+// import { useRouter } from 'next/router';
+import Button from '../Button'
+import Input from '../Input'
+import styles from './styles.module.scss'
+import schools from '../../constants/schools'
+import durations from '../../constants/duration'
+import InputSuggestion from '../InputSuggestion'
+import CheckInfo from './CheckInfo'
+// import DropImage from '../DropImage'
+import SamplePhotosUploader from '../../components/UploadPhoto'
+
+export default function Form(): ReactElement {
+  // const router = useRouter()
+  const contactFormRef = useRef(null)
+  const [school, setSchoolValue] = useState(null)
+  const [name, setNameValue] = useState(null)
+  const [job, setJobValue] = useState(null)
+  const [company, setCompanyValue] = useState(null)
+  const [address, setAddressValue] = useState(null)
+  const [kidName, setKidNameValue] = useState(null)
+  const [kidPhone, setKidPhoneValue] = useState(null)
+  const [amount, setAmountValue] = useState(null)
+  const [duration, setDurationValue] = useState(null)
+  const [ambassador_code, setAmbassadorCodeValue] = useState(null)
+  const [other, setotherValue] = useState(null)
+  const [familyAre, setFamilyAreValue] = useState(null)
+  const [selectedFamilyAre, setSelectedFamilyAre] = useState(null);
+  const [familyName, setFamilyNameValue] = useState(null)
+  const [familyPhone, setFamilyPhoneValue] = useState(null)
+  const [phone, setPhoneValue] = useState(undefined)
+  const [email, setEmailValue] = useState(null)
+  const [whoAreYou, setWhoareYouValue] = useState('Con bạn')
+  const [selectedWhoareYou, setSelectedWhoareYou] = useState(null);
+  const [studyType, setStudyTypeValue] = useState(null)
+  const [selectedStudyType, setSelectedStudyType] = useState(null);
+  const [isUsed, setisUsedValue] = useState(null)
+  const [selectedIsUsed, setSelectedIsUsed] = useState(null);
+  const [bankingCards, setBackingCardsValue] = useState(null)
+  const [selectedBankingCards, setSelectedBankingCards] = useState(null);
+  const [nameError, setNameError] = useState(null)
+  const [jobError, setJobError] = useState(null)
+  const [companyError, setCompanyError] = useState(null)
+  const [addressError, setAddressError] = useState(null)
+  const [kidNameError, setKidNameError] = useState(null)
+  const [amountError, setAmountError] = useState(null)
+  const [otherError, setotherError] = useState(null)
+  const [familyNameError, setFamilyNameError] = useState(null)
+  const [familyPhoneError, setFamilyPhoneError] = useState(null)
+  const [phoneError, setPhoneError] = useState(null)
+  const [emailError, setEmailError] = useState(null)
+  const [successMessage, setSuccessMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [isLoading, setLoading] = useState(false)
+  const [isShowMessInstallmentPayment, setShowMessInstallmentPayment] = useState(false)
+  const [isShowInputInfoSon, setShowInputInfoSon] = useState(true)
+  const [isShowInputInfoSeft, setShowInputInfoSeft] = useState(false)
+  const [isShowInputInfoOthers, setShowInputInfoOthers] = useState(false)
+  const [isShowPage1, setShowPage1] = useState(true)
+  const [isShowPage2, setShowPage2] = useState(false)
+  const [isShowPage3, setShowPage3] = useState(false)
+  const [isShowPage4, setShowPage4] = useState(false)
+  const [anhChup, setAnhChup] = useState([])
+  const [fileAnhChup, setFileAnhChup] = useState([])
+  const [anhChup135, setAnhChup135] = useState([])
+  const [fileAnhChup135, setFileAnhChup135] = useState([])
+  const [anhBan, setAnhBan] = useState([])
+  const [fileAnhBan, setFileAnhBan] = useState([])
+  const [hinhChup, setHinhChup71] = useState([])
+  const [fileHinhChup71, setFileHinhChup71] = useState([])
+  const [hinhChup72, setHinhChup72] = useState([])
+  const [fileHinhChup72, setFileHinhChup72] = useState([])
+  const [anhChup24, setAnhChup24] = useState([])
+  const [fileanhChup24, setFileanhChup24] = useState([])
+  const [anhChup39, setAnhChup39] = useState([])
+  const [fileAnhChup39, setFileAnhChup39] = useState([])
+  // const [commitmentType, setCommitmentType] = useState(router.query.commitment)
+ 
+  // useEffect(() => {
+  //   setCommitmentType(router.query.commitment)
+  // }, [router.query.commitment])
+
+  // const isShowingHigh = router.query.commitment === 'HIGH';
+  // const isShowingLow = router.query.commitment === 'LOW';
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    validateName()
+    validatePhone()
+    validateEmail()
+    validateJob()
+    validateCompany()
+    validateAddress()
+    validateAmount()
+    validateFamilyName()
+    validateFamilyPhone()
+    const isValid = validateName() 
+      validatePhone() &&
+      validateEmail() &&
+      validateJob() &&
+      validateCompany() &&
+      validateAddress() &&
+      validateAmount() &&
+      validateFamilyName() &&
+      validateFamilyPhone()
+
+    if (isValid) {
+      setLoading(true)
+      try {
+        const response = await fetch(`https://admin-api.stg.rootopia.vn/requests/webhook/v3-form-submission`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Accept-Language': 'vi',
+            },
+            body: JSON.stringify({
+              q91_school: school,
+              school,
+              q20_name: name,
+              name,
+              q4_email: email,
+              email,
+              q5_phone: {full: phone},
+              phone,
+              q111_job: job,
+              job,
+              q113_company: company,
+              company,
+              q42_address: address,
+              address,
+              q68_kidName: kidName,
+              kidName,
+              q73_kidPhone: {full: kidPhone},
+              kidPhone,
+              q25_amount: amount,
+              amount,
+              q10_duration: duration,
+              duration,
+              q125_ambassador_code: ambassador_code,
+              ambassador_code,
+              q63_familyAre: familyAre,
+              familyAre,
+              q61_familyName: familyName,
+              familyName,
+              q62_familyPhone: {full: familyPhone},
+              familyPhone,
+              q65_whoAreYou: whoAreYou,
+              whoAreYou,
+              q139_studyType: studyType,
+              studyType,
+              q80_isUsed: isUsed,
+              isUsed,
+              q114_bankingCards: bankingCards,
+              bankingCards,
+              // q137_commitmentType: commitmentType,
+              // commitmentType,
+              anhChup,
+              anhChup135,
+              anhBan,
+              hinhChup,
+              hinhChup72,
+              anhChup24,
+              anhChup39
+            })
+          })
+        setLoading(false)
+        if (response.status === 201) {
+          handleDisplayMessage('Chúc mừng! Bạn đã gửi thông tin liên hệ thành công!', true)
+          contactFormRef?.current?.reset()
+          setisUsedValue(null)
+          setPhoneValue(undefined)
+          setEmailValue(null)
+          setNameValue(null)
+          setAddressValue(null)
+          setJobValue(null)
+          setCompanyValue(null)
+          setKidNameValue(null)
+          setKidPhoneValue(null)
+          setAmountValue(null)
+          setSchoolValue(null)
+          setWhoareYouValue(null)
+          setotherValue(null)
+          setDurationValue(null)
+          setAmbassadorCodeValue(null)
+          setFamilyAreValue(null)
+          setFamilyNameValue(null)
+          setFamilyPhoneValue(null)
+          return true
+        }
+        const data = response?.headers?.get('content-type')?.startsWith('application/json') ? await response.json() : Promise.resolve({})
+        const error = data?.errors?.length ? data.errors[0].msg : ''
+        handleDisplayMessage(error || 'Bạn vui lòng nhập thông tin để xem kết quả', false)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    else {
+      handleDisplayMessage('Bạn vui lòng nhập thông tin để liên hệ', false)
+      return false
+    }
+  }
+
+  const handleDisplayMessage = (message, isSuccess) => {
+    if (isSuccess) {
+      setSuccessMessage(message)
+    } else {
+      setErrorMessage(message)
+    }
+    const interval = setInterval(() => {
+      setSuccessMessage(null)
+      setErrorMessage(null)
+      if (isSuccess) {
+        // router.push(ROUTES.HOME_PAGE)
+      }
+    }, 6000)
+    return () => {
+      clearInterval(interval);
+    };
+  }
+  const validateName = () => {
+    if (!name) {
+      setNameError('Bạn vui lòng nhập họ và tên')
+      return false
+    } else {
+      setNameError(null)
+    }
+    return true
+  }
+  const validateJob = () => {
+    if (!job) {
+      setJobError('Bạn vui lòng nhập nghề nghiệp của mình')
+      return false
+    } else {
+      setJobError(null)
+    }
+    return true
+  }
+  const validateCompany = () => {
+    if (!company) {
+      setCompanyError('Bạn vui lòng nhập nơi làm việc')
+      return false
+    } else {
+      setCompanyError(null)
+    }
+    return true
+  }
+
+  const validateAddress = () => {
+    if (!address) {
+      setAddressError('Bạn vui lòng nhập nơi ở hiện tại')
+      return false
+    } else {
+      setAddressError(null)
+    }
+    return true
+  }
+
+  const validateKidName = () => {
+    if (!kidName) {
+      setKidNameError('Bạn vui lòng tên người đi học')
+      return false
+    } else {
+      setKidNameError(null)
+    }
+    return true
+  }
+
+  const validateAmount = () => {
+    if (!amount) {
+      setAmountError('Vui lòng nhập số tiền muốn trả góp')
+      return false
+    } else {
+      setAmountError(null)
+    }
+    return true
+  }
+
+  const validateother = () => {
+    if (!other) {
+      setotherError('Vui lòng nhập mối quan hệ người đó với bạn')
+      return false
+    } else {
+      setotherError(null)
+    }
+    return true
+  }
+  const validateFamilyName = () => {
+    if (!familyName) {
+      setFamilyNameError('Vui lòng nhập tên người thân của bạn')
+      return false
+    } else {
+      setFamilyNameError(null)
+    }
+    return true
+  }
+  const validateFamilyPhone = () => {
+    if (!familyPhone) {
+      setFamilyPhoneError('Vui lòng nhập số điện thoại người thân của bạn')
+      return false
+    } else {
+      setFamilyPhoneError(null)
+    }
+    return true
+  }
+
+  const validatePhone = () => {
+    if (!phone) {
+      setPhoneError('Bạn vui lòng nhập số điện thoại')
+      return false
+    } else {
+      setPhoneError(null)
+    }
+    return true
+  }
+
+  const validateEmail = () => {
+    if (!email) {
+      setEmailError('Bạn vui lòng nhập địa chỉ email')
+      return false
+    } else {
+      setEmailError(null)
+    }
+    return true
+  }
+  const durationData = durations?.map(item => {
+    return {
+      value: item.month,
+      id: item.id
+    }
+  })
+  const schoolData = schools?.map(item => {
+    return {
+      value: item.schoolName,
+      id: item.id
+    }
+  })
+
+  const handleChangeSchool = (value) => {
+    setSchoolValue(value)
+  }
+  const handleChangeDuration = (value) => {
+    setDurationValue(value)
+  }
+
+  const isShowMess = (e) => {
+    setShowMessInstallmentPayment(true)
+    setisUsedValue(e.target.value)
+    setSelectedIsUsed(e.target.value)
+  }
+  const isNotShowMess = (e) => {
+    setShowMessInstallmentPayment(false)
+    setisUsedValue(e.target.value)
+    setSelectedIsUsed(e.target.value)
+  }
+
+  const showInputInfoSon = (e) => {
+    setShowInputInfoSon(true)
+    setShowInputInfoSeft(false)
+    setShowInputInfoOthers(false)
+    setWhoareYouValue(e.target.value)
+    setSelectedWhoareYou(e.target.value)
+  }
+  const showInputInfoSeft = (e) => {
+    setShowInputInfoSeft(true)
+    setShowInputInfoSon(false)
+    setShowInputInfoOthers(false)
+    setWhoareYouValue(e.target.value)
+    setSelectedWhoareYou(e.target.value)
+  }
+  const showInputInfoOthers = (e) => {
+    setShowInputInfoOthers(true)
+    setShowInputInfoSeft(false)
+    setShowInputInfoSon(false)
+    setWhoareYouValue(e.target.value)
+    setSelectedWhoareYou(e.target.value)
+  }
+  const handleBankingCards = (e) => {
+    setBackingCardsValue(e.target.value)
+    setSelectedBankingCards(e.target.value)
+  }
+  const handleFamilyAre = (e) => {
+    setFamilyAreValue(e.target.value)
+    setSelectedFamilyAre(e.target.value)
+  }
+  const handleStudyType = (e) => {
+    setStudyTypeValue(e.target.value)
+    setSelectedStudyType(e.target.value)
+  }
+
+  const onClickNextPage2 = () => {
+    setShowPage1(false)
+    setShowPage2(true)
+  }
+  const onClickBackPage1 = () => {
+    setShowPage1(true)
+    setShowPage2(false)
+  }
+  const onClickNextPage3 = () => {
+    setShowPage2(false)
+    setShowPage3(true)
+  }
+  const onClickBackPage2 = () => {
+    setShowPage2(true)
+    setShowPage3(false)
+  }
+  const onClickNextPage4 = () => {
+    setShowPage3(false)
+    setShowPage4(true)
+  }
+  const onClickBackPage3 = () => {
+    setShowPage3(true)
+    setShowPage4(false)
+  }
+
+  const isDisabled = () => {
+    if ((phone && name && job && email && company && school && address && amount && familyName && familyPhone && duration) == null)
+      return true
+  }
+  const handleAnhChup = (newData) => {
+    setAnhChup([newData])
+  }
+  const handleAnhChup135 = newData => {
+    setAnhChup135([newData])
+  }
+  const handleAnhBan = newData => {
+    setAnhBan([newData])
+  }
+  const handleHinhChup71 = newData => {
+    setHinhChup71([newData])
+  }
+  const handleHinhChup72 = newData => {
+    setHinhChup72([newData])
+  }
+  const handleanhChup24 = newData => {
+    setAnhChup24([newData])
+  }
+  const handleAnhChup39 = newData => {
+    setAnhChup39([newData])
+  }
+  return (
+    <>
+      <div className={styles.Wrapper}>
+        <form ref={contactFormRef}
+          className={styles.contactForm}
+          onSubmit={handleSubmit}>
+          <div className={styles.imageWrapper}>
+            <img className={styles.image} src="/Rootopia-logo@x3.png" alt="logo" />
+          </div>
+          <div className={styles.title}><span>Chào mừng bạn đến với <span style={{ color: '#F476A7' }}>Rootopia</span></span></div>
+          <div style={{ display: isShowPage1 ? 'block' : 'none' }}>
+            <div>
+              <div style={{ justifyContent: 'start', marginBottom: '16px' }}>
+                Bạn đã từng trả góp học phí tại Rootopia chưa?
+              </div>
+              <div className={styles.radio}>
+                <input type="radio" name='installmentPayment' value='Chưa, đây là lần đầu tiên' onClick={isNotShowMess} checked={selectedIsUsed === 'Chưa, đây là lần đầu tiên'} />
+                <label>Chưa, đây là lần đầu tiên</label>
+              </div>
+              <div className={styles.radio}>
+                <input type="radio" name='installmentPayment' value='Đã từng' onClick={isShowMess} checked={selectedIsUsed === 'Đã từng'} />
+                <label>Đã từng</label>
+              </div>
+              {isShowMessInstallmentPayment ?
+                <p className={styles.note}>· Nếu bạn đã từng trả góp Rootopia, vui lòng nhập <span style={{ color: '#F476A7', fontSize: '14px' }}>số điện thoại</span> bạn dùng để đăng ký trước đây.</p>
+                : null
+              }
+              <br />
+              <div className={styles.groupBox}>
+                <div className={styles.groupItemBox}>
+                  <span>Số điện thoại</span>
+                  <Input
+                    type='number'
+                    placeholder={'Số điện thoại'}
+                    name='q5_phone'
+                    value={phone}
+                    className={styles.inputBox}
+                    onChange={setPhoneValue}
+                    onBlur={validatePhone}
+                  />
+                  <div role='alert' className={styles.errorMsg}>{phoneError}</div>
+                </div>
+                <div className={styles.groupItemBox}>
+                  <span>Email</span>
+                  <Input
+                    type='email'
+                    placeholder={'Email'}
+                    name='email'
+                    value={email}
+                    className={styles.inputBox}
+                    onChange={setEmailValue}
+                    onBlur={validateEmail}
+                  />
+                  <div role='alert' className={styles.errorMsg}>{emailError}</div>
+                </div>
+              </div>
+            </div>
+            <Button
+                text={'Tiếp tục'}
+                className={styles.submitBtn}
+                onClick={onClickNextPage2}
+                disabled={false}
+                loading={false}
+            />
+          </div>
+          <div style={{ display: isShowPage2 ? 'block' : 'none' }}>
+            <div style={{ display: 'flex' }}>
+              <div style={{ width: '24px' }}>
+                <img src="/backIcon.png" alt="back-icon" style={{ width: '100%', cursor: 'pointer' }} onClick={onClickBackPage1} />
+              </div>
+              <h3 className={styles.titlePages}>Đăng ký bảo trợ</h3>
+            </div>
+            <br />
+            <div>
+              <div className={styles.groupBox}>
+                <div className={styles.groupItemBox}>
+                  <span>{'Họ và tên'}</span>
+                  <Input
+                    type='text'
+                    placeholder={'Họ và tên'}
+                    name='name'
+                    value={name}
+                    className={styles.inputBox}
+                    onChange={setNameValue}
+                    onBlur={validateName}
+                  />
+                  <div role='alert' className={styles.errorMsg}>{nameError}</div>
+                </div>
+                <div className={styles.groupItemBox}>
+                  <span>Nghề nghiệp</span>
+                  <Input
+                    type='text'
+                    placeholder={'Nghề nghiệp'}
+                    name='job'
+                    value={job}
+                    className={styles.inputBox}
+                    onChange={setJobValue}
+                    onBlur={validateJob}
+                  />
+                  <div role='alert' className={styles.errorMsg}>{jobError}</div>
+                </div>
+              </div>
+              <div className={styles.groupBox}>
+                <div className={styles.groupItemBox}>
+                  <p className={styles.note}>· Ghi tên hoặc website công ty hoặc ghi <span style={{ color: '#F476A7', fontSize: '14px' }}>làm tại nhà</span> nếu có cửa hàng, xưởng tại nhà</p>
+                  <div>
+                    <span>Nơi làm việc</span>
+                    <Input
+                      type='text'
+                      placeholder={'Nơi làm việc'}
+                      name='company'
+                      value={company}
+                      className={styles.inputBox}
+                      onChange={setCompanyValue}
+                      onBlur={validateCompany}
+                    />
+                    <div role='alert' className={styles.errorMsg}>{companyError}</div>
+                  </div>
+                </div>
+                <div className={styles.groupItemBox}>
+                  <p className={styles.note}>· Vui lòng điền đủ: Số nhà, Xã/Phường, Huyện/Quận, Tỉnh/Thành phố</p>
+                  <div>
+                    <span>Nơi ở hiện tại</span>
+                    <Input
+                      type='text'
+                      placeholder={'Nơi ở hiện tại'}
+                      name='address'
+                      value={address}
+                      className={styles.inputBox}
+                      onChange={setAddressValue}
+                      onBlur={validateAddress}
+                    />
+                    <div role='alert' className={styles.errorMsg}>{addressError}</div>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.containerChooseSchool}>
+                <label className={styles.sponsorInfoLabel}>Hãy điền tên trường bạn muốn được bảo trợ</label>
+                <InputSuggestion
+                  type='text'
+                  name='school'
+                  listId='schoolList'
+                  id='school'
+                  value={school}
+                  className={styles.suggestionInput}
+                  placeholder={'Hãy chọn/nhập trường'}
+                  data={schoolData}
+                  onChange={handleChangeSchool}
+                />
+              </div>
+              {/* {
+                !(isShowingHigh || isShowingLow) ?
+                  <div>
+                    <label>Ảnh chụp 1 loại giấy tờ chứng minh nơi ở hiện tại</label>
+                    <div>
+                      <SamplePhotosUploader
+                        onDataChange={handleAnhChup39}
+                        initialFiles={fileAnhChup39}
+                        setFiles={(v) => setFileAnhChup39(v)}
+                      />
+                    </div>
+                    <label className={styles.note}>· Hóa đơn điện/nước/điện thoại/phí căn hộ (chụp ảnh màn hình nếu đóng tiền online) / Giấy tạm trú / Sổ tạm trú / Hợp đồng thuê nhà. Có thể gửi nhiều hình</label>
+                  </div>
+                  :
+                  null} */}
+
+              {/* <div className={styles.dropImage}>
+                <DropImage label={'Hướng dẫn chụp hình CMND/CCCD'} data={IMAGE_HUONG_DAN} dafaultOpen={false} />
+              </div> */}
+              <div className={styles.groupBox}>
+                <div className={styles.groupItemBox}>
+                  <label>
+                    Mặt trước CMND/CCCD
+                  </label>
+                  <div>
+                    <SamplePhotosUploader
+                      onDataChange={handleAnhChup}
+                      initialFiles={fileAnhChup}
+                      setFiles={(v) => setFileAnhChup(v)}
+                    />
+                  </div>
+                </div>
+                <div className={styles.groupItemBox}>
+                  <label>
+                    Mặt sau CMND/CCCD
+                  </label>
+                  <div>
+                    <SamplePhotosUploader
+                      onDataChange={handleAnhChup135}
+                      initialFiles={fileAnhChup135}
+                      setFiles={(v) => setFileAnhChup135(v)}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className={styles.groupItemBox1}>
+                <label>
+                  Hình chân dung CMND/CCCD
+                </label>
+                <div>
+                  <SamplePhotosUploader
+                    onDataChange={handleAnhBan}
+                    initialFiles={fileAnhBan}
+                    setFiles={(v) => setFileAnhBan(v)}
+                  />
+                </div>
+              </div>
+              {/* {!(isShowingHigh || isShowingLow) ?
+                <div>
+                  <span>Hiện tại, bạn có đang dùng thẻ tín dụng, hay dùng tài khoản ngân hàng để nhận lương/ kinh doanh buôn bán không?</span>
+                  <div className={styles.radio}>
+                    <input type="radio" id='BankingCards' name='BankingCards' value='Có sử dụng thẻ tín dụng' onClick={handleBankingCards} checked={selectedBankingCards === 'Có sử dụng thẻ tín dụng'} />
+                    <label>Có sử dụng thẻ tín dụng</label>
+                  </div>
+                  <div className={styles.radio}>
+                    <input type="radio" id='BankingCards' name='BankingCards' value='Chỉ có tài khoản ngân hàng' onClick={handleBankingCards} checked={selectedBankingCards === 'Chỉ có tài khoản ngân hàng'} />
+                    <label>Chỉ có tài khoản ngân hàng</label>
+                  </div>
+                  <div className={styles.radio}>
+                    <input type="radio" id='BankingCards' name='BankingCards' value='Không sử dụng cả hai' onClick={handleBankingCards} checked={selectedBankingCards === 'Không sử dụng cả hai'} />
+                    <label>Không sử dụng cả hai</label>
+                  </div>
+                </div>
+                :
+                null} */}
+              <Button
+                text={'Tiếp tục'}
+                className={styles.submitBtn}
+                onClick={onClickNextPage3}
+                disabled={false}
+                loading={false}
+            />
+            </div>
+          </div >
+          <div style={{ display: isShowPage3 ? 'block' : 'none' }}>
+            <div>
+              <div style={{ display: 'flex' }}>
+                <div style={{ width: '24px' }}>
+                  <img src="/backIcon.png" alt="back-icon" style={{ width: '100%', cursor: 'pointer' }} onClick={onClickBackPage2} />
+                </div>
+                <h3 className={styles.titlePages}>Đăng ký bảo trợ</h3>
+              </div>
+              <br />
+              <h3 style={{ marginBottom: '8px' }}>Thông tin người học</h3>
+              <div>
+                <span>Bạn cần trả góp học phí cho</span>
+                <div className={styles.radio}>
+                  <input type="radio" id='whoAreYou' name='whoAreYou' value='Con bạn' onClick={showInputInfoSon} checked={selectedWhoareYou === 'Con bạn'} />
+                  <label>Con bạn</label>
+                </div>
+                <div className={styles.radio}>
+                  <input type="radio" id='whoAreYou' name='whoAreYou' value='Bản thân' onClick={showInputInfoSeft} checked={selectedWhoareYou === 'Bản thân'} />
+                  <label>Bản thân</label>
+                </div>
+                <div className={styles.radio}>
+                  <input type="radio" id='whoAreYou' name='whoAreYou' value='Người khác' onClick={showInputInfoOthers} checked={selectedWhoareYou === 'Người khác'} />
+                  <label>Người khác</label>
+                </div>
+              </div>
+              {
+                isShowInputInfoSon ?
+                  <div>
+                    <div className={styles.groupBox}>
+                      <div className={styles.groupItemBox}>
+                        <span>Họ tên của người học</span>
+                        <Input
+                          type='text'
+                          placeholder={'Họ tên của người học'}
+                          name='kidName'
+                          value={kidName}
+                          className={styles.inputBox}
+                          onChange={setKidNameValue}
+                          onBlur={validateKidName}
+                        />
+                        <div role='alert' className={styles.errorMsg}>{kidNameError}</div>
+                      </div>
+                      <div className={styles.groupItemBox}>
+                        <span>Số điện thoại của người học (nếu có)</span>
+                        <Input
+                          type='number'
+                          placeholder={'Số điện thoại của người học (nếu có)'}
+                          name='kidPhone'
+                          value={kidPhone}
+                          className={styles.inputBox}
+                          onChange={setKidPhoneValue}
+                        />
+                      </div>
+                    </div>
+                    <div className={styles.groupBox}>
+                      <div className={styles.groupItemBox}>
+                        <label>Hình chụp giấy khai sinh của người học</label>
+                        <SamplePhotosUploader
+                          onDataChange={handleHinhChup71}
+                          initialFiles={fileHinhChup71}
+                          setFiles={v => setFileHinhChup71(v)}
+                        />
+                        <div></div>
+                      </div>
+                      <div className={styles.groupItemBox}>
+                        <label>Ảnh chụp chân dung người học</label>
+                        <SamplePhotosUploader
+                          onDataChange={handleHinhChup72}
+                          initialFiles={fileHinhChup72}
+                          setFiles={(v) => setFileHinhChup72(v)}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <h3  style={{ marginBottom: '8px' }}> Thông tin học phí</h3>
+                    </div>
+                    <div>
+                      <label>Trường học/ Trung tâm giáo dục bạn đăng ký</label>
+                      <div style={{ background: '#E4E6EC', border: 'none', borderRadius: '8px', padding: '16px', margin: '8px 0' }}>{school}</div>
+                    </div>
+                    <div>
+                      <p>Hình thức học</p>
+                      <div className={styles.radio}>
+                        <input type="radio" name='studyType' value='Học trực tiếp tại lớp học' onChange={handleStudyType} checked={selectedStudyType === 'Học trực tiếp tại lớp học'} />
+                        <label>Học trực tiếp tại lớp học</label>
+                      </div>
+                      <div className={styles.radio}>
+                        <input type="radio" name='studyType' value='Học online' onChange={handleStudyType} checked={selectedStudyType === 'Học online'} />
+                        <label>Học online</label>
+                      </div>
+                      <div className={styles.radio}>
+                        <input type="radio" name='studyType' value='Học kết hợp online và trực tiếp' onChange={handleStudyType} checked={selectedStudyType === 'Học kết hợp online và trực tiếp'} />
+                        <label>Học kết hợp online và trực tiếp</label>
+                      </div>
+                    </div>
+                    <div style={{ marginTop: '8px' }}>
+                      <label>Ảnh chụp thông báo đóng học phí phát hành bởi Cơ sở giáo dục</label>
+                      <SamplePhotosUploader
+                        onDataChange={handleanhChup24}
+                        initialFiles={fileanhChup24}
+                        setFiles={(v) => setFileanhChup24(v)}
+                      />
+                      <p className={styles.note}>· Thể hiện rõ: Ngân hàng, Chi nhánh, Số tài khoản, Tên người thụ hưởng, Nội dung chuyển khoản.</p>
+                    </div>
+                    <br />
+                    <div>
+                      <span>Số tiền học phí cần trả góp</span>
+                      <Input
+                        type='number'
+                        placeholder={'Số tiền học phí cần trả góp'}
+                        name='amount'
+                        value={amount}
+                        className={styles.inputBox}
+                        onChange={setAmountValue}
+                        onBlur={validateAmount}
+                      />
+                      <div role='alert' className={styles.errorMsg}>{amountError}</div>
+                      <p className={styles.note}>· Rootopia sẽ giải ngân học phí vào tài khoản của Cơ Sở Giáo Dục. Vui lòng KHÔNG nhập nhiều hơn số tiền trên thông báo học phí.</p>
+                    </div>
+                    <br />
+                    <div>
+                      <label>Kỳ hạn trả góp</label>
+                      <InputSuggestion
+                        type='text'
+                        name='duration'
+                        listId='durationList'
+                        id='duration'
+                        value={duration}
+                        className={styles.suggestionInput}
+                        placeholder={'Hãy chọn kỳ hạn trả'}
+                        data={durationData}
+                        onChange={handleChangeDuration}
+                      />
+                    </div>
+                    <div>
+                      <span>Mã giới thiệu trường</span>
+                      <Input
+                        type='number'
+                        placeholder={'Mã giới thiệu trường'}
+                        name='ambassador_code'
+                        value={ambassador_code}
+                        className={styles.inputBox}
+                        onChange={setAmbassadorCodeValue}
+                      />
+                    </div>
+                  </div>
+                  : null
+              }
+              {
+                isShowInputInfoSeft ?
+                  <div style={{ display: isShowInputInfoSeft ? 'block' : 'none' }}>
+                    <div>
+                      <h3  style={{ marginBottom: '8px' }}> Thông tin học phí</h3>
+                    </div>
+                    <div>
+                      <label>Trường học/ Trung tâm giáo dục bạn đăng ký</label>
+                      <div style={{ background: '#E4E6EC', border: 'none', borderRadius: '8px', padding: '16px', margin: '8px 0' }}>{school}</div>
+                    </div>
+                    <div>
+                      <p>Hình thức học</p>
+                      <div className={styles.radio}>
+                        <input type="radio" name='studyType' value='Học trực tiếp tại lớp học' onChange={handleStudyType} checked={selectedStudyType === 'Học trực tiếp tại lớp học'} />
+                        <label>Học trực tiếp tại lớp học</label>
+                      </div>
+                      <div className={styles.radio}>
+                        <input type="radio" name='studyType' value='Học online' onChange={handleStudyType} checked={selectedStudyType === 'Học online'} />
+                        <label>Học online</label>
+                      </div>
+                      <div className={styles.radio}>
+                        <input type="radio" name='studyType' value='Học kết hợp online và trực tiếp' onChange={handleStudyType} checked={selectedStudyType === 'Học kết hợp online và trực tiếp'} />
+                        <label>Học kết hợp online và trực tiếp</label>
+                      </div>
+                    </div>
+                    <div style={{ marginTop: '8px' }}>
+                      <label>Ảnh chụp thông báo đóng học phí phát hành bởi Cơ sở giáo dục</label>
+                      <SamplePhotosUploader
+                        onDataChange={handleanhChup24}
+                        initialFiles={fileanhChup24}
+                        setFiles={(v) => setFileanhChup24(v)}
+                      />
+                      <p className={styles.note}>· Thể hiện rõ: Ngân hàng, Chi nhánh, Số tài khoản, Tên người thụ hưởng, Nội dung chuyển khoản.</p>
+                    </div>
+                    <div>
+                      <span>Số tiền học phí cần trả góp</span>
+                      <Input
+                        type='number'
+                        placeholder={'Số tiền học phí cần trả góp'}
+                        name='amount'
+                        value={amount}
+                        className={styles.inputBox}
+                        onChange={setAmountValue}
+                        onBlur={validateAmount}
+                      />
+                      <div role='alert' className={styles.errorMsg}>{amountError}</div>
+                      <p className={styles.note}>· Rootopia sẽ giải ngân học phí vào tài khoản của Cơ Sở Giáo Dục. Vui lòng KHÔNG nhập nhiều hơn số tiền trên thông báo học phí.</p>
+                    </div>
+                    <div>
+                      <label>Kỳ hạn trả góp</label>
+                      <InputSuggestion
+                        type='text'
+                        name='duration'
+                        listId='durationList'
+                        id='duration'
+                        value={duration}
+                        className={styles.suggestionInput}
+                        placeholder={'Hãy chọn kỳ hạn trả'}
+                        data={durationData}
+                        onChange={handleChangeDuration}
+                      />
+                    </div>
+                    <div>
+                      <span>Mã giới thiệu trường</span>
+                      <Input
+                        type='number'
+                        placeholder={'Mã giới thiệu trường'}
+                        name='ambassador_code'
+                        value={ambassador_code}
+                        className={styles.inputBox}
+                        onChange={setAmbassadorCodeValue}
+                      />
+                    </div>
+                  </div>
+                  :
+                  null
+              }
+              {
+                isShowInputInfoOthers ?
+                  <div>
+                    <div>
+                      <div>
+                        <span>Người đó là</span>
+                        <Input
+                          type='text'
+                          placeholder={'Người đó là'}
+                          name='other'
+                          value={other}
+                          className={styles.inputBox}
+                          onChange={setotherValue}
+                          onBlur={validateother}
+                        />
+                        <div role='alert' className={styles.errorMsg}>{otherError}</div>
+                      </div>
+                      <div className={styles.groupBox}>
+                        <div className={styles.groupItemBox}>
+                          <span>Họ tên của người học</span>
+                          <Input
+                            type='text'
+                            placeholder={'Họ tên của người học'}
+                            name='kidName'
+                            value={kidName}
+                            className={styles.inputBox}
+                            onChange={setKidNameValue}
+                            onBlur={validateKidName}
+                          />
+                          <div role='alert' className={styles.errorMsg}>{kidNameError}</div>
+                        </div>
+                        <div className={styles.groupItemBox}>
+                          <span>Số điện thoại của người học (nếu có)</span>
+                          <Input
+                            type='number'
+                            placeholder={'Số điện thoại của người học (nếu có)'}
+                            name='kidPhone'
+                            value={kidPhone}
+                            className={styles.inputBox}
+                            onChange={setKidPhoneValue}
+                          />
+                        </div>
+                      </div>
+                      <div className={styles.groupBox}>
+                        <div className={styles.groupItemBox}>
+                          <label>Hình chụp giấy khai sinh của người học</label>
+                          <SamplePhotosUploader
+                            onDataChange={handleHinhChup71}
+                            initialFiles={fileHinhChup71}
+                            setFiles={(v) => setFileHinhChup71(v)}
+                          />
+                        </div>
+                        <div className={styles.groupItemBox}>
+                          <label>Ảnh chụp chân dung người học</label>
+                          <SamplePhotosUploader
+                            onDataChange={handleHinhChup72}
+                            initialFiles={fileHinhChup72}
+                            setFiles={(v) => setFileHinhChup72(v)}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <h3  style={{ marginBottom: '8px' }}> Thông tin học phí</h3>
+                    </div>
+                    <div>
+                      <label>Trường học/ Trung tâm giáo dục bạn đăng ký</label>
+                      <div style={{ background: '#E4E6EC', border: 'none', borderRadius: '8px', padding: '16px', margin: '8px 0' }}>{school}</div>
+                    </div>
+                    <div>
+                      <p>Hình thức học</p>
+                      <div className={styles.radio}>
+                        <input type="radio" name='studyType' value='Học trực tiếp tại lớp học' onChange={handleStudyType} checked={selectedStudyType === 'Học trực tiếp tại lớp học'} />
+                        <label>Học trực tiếp tại lớp học</label>
+                      </div>
+                      <div className={styles.radio}>
+                        <input type="radio" name='studyType' value='Học online' onChange={handleStudyType} checked={selectedStudyType === 'Học online'} />
+                        <label>Học online</label>
+                      </div>
+                      <div className={styles.radio}>
+                        <input type="radio" name='studyType' value='Học kết hợp online và trực tiếp' onChange={handleStudyType} checked={selectedStudyType === 'Học kết hợp online và trực tiếp'} />
+                        <label>Học kết hợp online và trực tiếp</label>
+                      </div>
+                    </div>
+                    <div style={{ marginTop: '8px' }}>
+                      <label>Ảnh chụp thông báo đóng học phí phát hành bởi Cơ sở giáo dục</label>
+                      <SamplePhotosUploader
+                        onDataChange={handleanhChup24}
+                        initialFiles={fileanhChup24}
+                        setFiles={(v) => setFileanhChup24(v)}
+                      />
+                      <p className={styles.note}>· Thể hiện rõ: Ngân hàng, Chi nhánh, Số tài khoản, Tên người thụ hưởng, Nội dung chuyển khoản.</p>
+                    </div>
+                    <div>
+                      <span>Số tiền học phí cần trả góp</span>
+                      <Input
+                        type='number'
+                        placeholder={'Số tiền học phí cần trả góp'}
+                        name='amount'
+                        value={amount}
+                        className={styles.inputBox}
+                        onChange={setAmountValue}
+                        onBlur={validateAmount}
+                      />
+                      <div role='alert' className={styles.errorMsg}>{amountError}</div>
+                      <p className={styles.note}>· Rootopia sẽ giải ngân học phí vào tài khoản của Cơ Sở Giáo Dục. Vui lòng KHÔNG nhập nhiều hơn số tiền trên thông báo học phí.</p>
+                    </div>
+                    <div>
+                      <label>Kỳ hạn trả góp</label>
+                      <InputSuggestion
+                        type='text'
+                        name='duration'
+                        listId='durationList'
+                        id='duration'
+                        value={duration}
+                        className={styles.suggestionInput}
+                        placeholder={'Hãy chọn kỳ hạn trả'}
+                        data={durationData}
+                        onChange={handleChangeDuration}
+                      />
+                    </div>
+                    <div>
+                      <span>Mã giới thiệu trường</span>
+                      <Input
+                        type='number'
+                        placeholder={'Mã giới thiệu trường'}
+                        name='ambassador_code'
+                        value={ambassador_code}
+                        className={styles.inputBox}
+                        onChange={setAmbassadorCodeValue}
+                      />
+                    </div>
+                  </div>
+                  :
+                  null
+              }
+              <div style={{ marginTop: '8px' }}>
+                <div>
+                  <ul>
+                    <li>· Nếu bạn là phụ huynh đăng ký cho con, vui lòng cung cấp số tham chiếu là vợ/chồng của bạn. </li>
+                    <br />
+                    <li>· Trong trường hợp đặc biệt hoặc bạn là học viên tự đứng tên, vui lòng cung cấp số tham chiếu là bố/mẹ hoặc anh/chị/em ruột.</li>
+                  </ul>
+                </div>
+                <br />
+                <div>
+                  <p>Người thân đó là:</p>
+                  <div className={styles.radio}>
+                    <input type="radio" name='familyAre' value='Bố' onChange={handleFamilyAre} checked={selectedFamilyAre === 'Bố'} />
+                    <label>Bố</label>
+                  </div>
+                  <div className={styles.radio}>
+                    <input type="radio" name='familyAre' value='Mẹ' onChange={handleFamilyAre} checked={selectedFamilyAre === 'Mẹ'} />
+                    <label>Mẹ</label>
+                  </div>
+                  <div className={styles.radio}>
+                    <input type="radio" name='familyAre' value='Vợ/Chồng' onChange={handleFamilyAre} checked={selectedFamilyAre === 'Vợ/Chồng'} />
+                    <label>Vợ/Chồng</label>
+                  </div>
+                  <div className={styles.radio}>
+                    <input type="radio" name='familyAre' value='Anh/Chị/Em ruột' onChange={handleFamilyAre} checked={selectedFamilyAre === 'Anh/Chị/Em ruột'} />
+                    <label>Anh/Chị/Em ruột</label>
+                  </div>
+                  <div className={styles.groupBox}>
+                    <div className={styles.groupItemBox}>
+                      <span>Họ và tên của người thân</span>
+                      <Input
+                        type='text'
+                        placeholder={'Họ và tên của người thân'}
+                        name='familyName'
+                        value={familyName}
+                        className={styles.inputBox}
+                        onChange={setFamilyNameValue}
+                        onBlur={validateFamilyName}
+                      />
+                      <div role='alert' className={styles.errorMsg}>{familyNameError}</div>
+                    </div>
+                    <div className={styles.groupItemBox}>
+                      <span>Số điện thoại của người thân</span>
+                      <Input
+                        type='text'
+                        placeholder={'Số điện thoại của người thân'}
+                        name='familyPhone'
+                        value={familyPhone}
+                        className={styles.inputBox}
+                        onChange={setFamilyPhoneValue}
+                        onBlur={validateFamilyPhone}
+                      />
+                      <div role='alert' className={styles.errorMsg}>{familyPhoneError}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <Button
+                text={'Tiếp tục'}
+                className={styles.submitBtn}
+                onClick={onClickNextPage4}
+                disabled={false}
+                loading={false}
+            />
+            </div>
+          </div>
+          <div style={{ display: isShowPage4 ? 'block' : 'none' }}>
+            <div style={{ display: 'flex' }}>
+              <div style={{ width: '24px' }}>
+                <img src="/backIcon.png" alt="back-icon" style={{ width: '100%', cursor: 'pointer' }} onClick={onClickBackPage3} />
+              </div>
+              <h3 className={styles.titlePages}>Kiểm tra thông tin</h3>
+
+            </div>
+            <div>
+              <CheckInfo
+                isUsed={isUsed}
+                phone={phone}
+                email={email}
+                name={name}
+                address={address}
+                job={job}
+                company={company}
+                familyAre={familyAre}
+                familyName={familyName}
+                familyPhone={familyPhone}
+                whoAreYou={whoAreYou}
+                kidName={kidName}
+                kidPhone={kidPhone}
+                school={school}
+                studyType={studyType}
+                amount={amount}
+                duration={duration}
+                ambassador_code={ambassador_code}
+                anhChup={anhChup[0]}
+                anhChup135={anhChup135[0]}
+                anhBan={anhBan[0]}
+                hinhChup={hinhChup[0]}
+                anhChup24={anhChup24[0]}
+                anhChup39={anhChup39[0]}
+              />
+              <Button
+                form='borrower-request-form'
+                text={'Đăng kí'}
+                className={styles.submitBtn}
+                onClick={handleSubmit}
+                disabled={false}
+                loading={isLoading}
+              />
+              {successMessage && <div className={styles.successPopup}>{successMessage}</div>}
+              {errorMessage && <div className={styles.errorPopup}>{errorMessage}</div>}
+            </div>
+          </div>
+
+        </form >
+      </div >
+    </>
+  )
+}

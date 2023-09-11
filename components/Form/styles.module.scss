@@ -1,0 +1,153 @@
+@import '/styles/utils/breakpoints';
+@import '/styles/utils/fonts';
+@import '/styles/utils/colors';
+@import '/styles/utils/constants';
+
+.Wrapper {
+  width: 100vw;
+  height: fit-content;
+  margin: 15px $offsetSideSpace 180px;
+  padding: 40px $sideSpace 0;
+  color: $grayBorder;
+  @include breakpointTabletL {
+    width: 100vw;
+  }
+  .titlePages{
+    font-weight: 700;
+    margin: 0 16px;
+  }
+  .title {
+    display: flex;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.45;
+    margin-top: 16px;
+    margin-bottom: 32px;
+  }
+  hr {
+    border : 0.5px #E4E6EC solid;
+  }
+  .note{
+    height: 20px;
+  }
+  .note {
+    font-size: 12px;
+  }
+  .groupBox {
+    position: relative;
+    display: flex;
+    width: 100%;
+    gap: 16px;
+    .groupItemBox {
+      width: 50%;
+    }
+  }
+  .radio{
+    display: flex;
+    gap: 8px;
+    margin: 8px 0;
+  }
+  .dropImage{
+    border: 1px solid #E4E6EC;
+    border-radius: 8px;
+    margin: 16px 0;
+  }
+  .groupItemBox1 {
+    width:calc(50% - 8px);
+  }
+  
+  .suggestionInput{
+    margin: 16px auto;
+  }
+  .inputBox {
+    width: 100%;
+    margin-top: 8px;
+    input{
+      width: 100%;
+    }
+  }
+  .submitBtn {
+    margin: 16px auto 0;
+    width: 250px;
+  }
+  
+  .learnerInformation{
+    margin: 16px 0 0 36px;
+  }
+  .errorMsg {
+    display: block;
+    height: 20px;
+    margin: 0;
+    padding-left: 5px;
+    @include font($rubik, 11px, $warningColor, 400, 20px, 0.2px);
+  }
+  
+  .successPopup {
+    width: $formSlideWidth;
+    margin: 16px auto;
+    padding: 8px 22px;
+    text-align: center;
+    border: 1px solid $lightGreen;
+    border-radius: 6px;
+    background: $opacityBackground;
+    @include font($rubik, 9px, $appleGreenColor, 400, 14px, 0.2px);
+  }
+  .errorPopup {
+    width: $formSlideWidth;
+    margin: 16px auto;
+    padding: 8px 22px;
+    text-align: center;
+    border: 1px solid $pomegranate;
+    border-radius: 6px;
+    background: $opacityBackground;
+    @include font($rubik, 9px, $sunsetOrange, 400, 14px, 0.2px);
+  }
+  .imageWrapper{
+      display: flex;
+      justify-content: center;
+}
+  @include breakpointDown('tabletL') {
+    .note {
+      height: 37px;
+    }
+  }
+  @include breakpointMobileL {
+    width: 100vw;
+    height: fit-content;
+    margin: 15px 0 10px;
+    padding: 40px 15px 0;
+    font-size: 14px;
+    .title{
+      font-size: 24px;
+      text-align: center;
+    }
+    .note{
+      height: 100%;
+    }
+    .titlePages{
+      margin: 0 auto;
+    }
+    .imageWrapper{
+      width: 90%;
+      margin: 0 auto;
+      img{
+        width: 100%;
+      }
+    }
+    .groupBox{
+      display: block;
+      .groupItemBox{
+        width: 100%;
+      }
+    }
+    
+    .groupItemBox1{
+      width: 100%;
+    }
+    .learnerInformation{ 
+    margin: 8px 0;
+    }
+    
+  }
+}
