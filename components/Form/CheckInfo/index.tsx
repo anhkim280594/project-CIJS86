@@ -26,7 +26,6 @@ interface Props {
     hinhChup71?: string;
     hinhChup72?: string;
     anhChup24?: string;
-    anhChup39?: string;
 
 }
 const CheckInfo = ({
@@ -54,7 +53,6 @@ const CheckInfo = ({
     hinhChup71,
     hinhChup72,
     anhChup24,
-    anhChup39,
 }: Props) => {
     return (
         <>
@@ -122,16 +120,6 @@ const CheckInfo = ({
                             <div style={{ width: '250px' }}>
                                 <img src={anhBan} alt="anhpreview" style={{ width: '100%', padding: '16px' }} />
                             </div>
-                        </div>
-                        <div className={styles.infoItem}>
-                            {anhChup39 ?
-                                <div>
-                                    <div>Ảnh chụp 1 loại giấy tờ chứng minh nơi ở hiện tại:</div>
-                                    <div style={{ width: '250px' }}>
-                                        <img src={anhChup39} alt="anhpreview" style={{ width: '100%', padding: '16px' }} />
-                                    </div>
-                                </div>
-                                : null}
                         </div>
                     </div>
                     <div>Người thân đó là:</div>

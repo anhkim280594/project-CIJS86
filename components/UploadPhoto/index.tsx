@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react';
 import 'react-dropzone-uploader/dist/styles.css';
-import Dropzone from 'react-dropzone-uploader';
+import Dropzone, { IDropzoneProps } from 'react-dropzone-uploader';
 import axios from 'axios';
 
 
 export default function SamplePhotosUploader(props): ReactElement {
-    const getUploadParams = async ({ file, meta: { name, type, previewUrl } }) => {
+    const getUploadParams: IDropzoneProps['getUploadParams'] = async ({ file, meta: { name, type, previewUrl } }) => {
         const data = await axios.post(`https://api-gateway.prod.rootopia.vn/forms/presigned-url`, {
             filename: name,
             filetype: type,

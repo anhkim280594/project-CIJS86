@@ -35,7 +35,6 @@ export default function Form(): ReactElement {
   const [selectedStudyType, setSelectedStudyType] = useState(null);
   const [isUsed, setisUsedValue] = useState(null)
   const [selectedIsUsed, setSelectedIsUsed] = useState(null);
-  const [bankingCards, setBackingCardsValue] = useState(null)
   const [nameError, setNameError] = useState(null)
   const [jobError, setJobError] = useState(null)
   const [companyError, setCompanyError] = useState(null)
@@ -58,6 +57,7 @@ export default function Form(): ReactElement {
   const [isShowPage2, setShowPage2] = useState(false)
   const [isShowPage3, setShowPage3] = useState(false)
   const [isShowPage4, setShowPage4] = useState(false)
+  const [isShowPage5, setShowPage5] = useState(false)
   const [anhChup, setAnhChup] = useState(null)
   const [fileAnhChup, setFileAnhChup] = useState(null)
   const [previewAnhChup, setpreviewAnhChup] = useState(null)
@@ -76,10 +76,7 @@ export default function Form(): ReactElement {
   const [anhChup24, setAnhChup24] = useState(null)
   const [fileanhChup24, setFileanhChup24] = useState(null)
   const [previewanhChup24, setpreviewanhChup24] = useState(null)
-  const [anhChup39, setAnhChup39] = useState(null)
-  const [fileAnhChup39, setFileAnhChup39] = useState(null)
-  const [previewAnhChup39, setpreviewAnhChup39] = useState(null)
-  
+
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     validateName()
@@ -137,12 +134,12 @@ export default function Form(): ReactElement {
               hinhChup71,
               hinhChup72,
               anhChup24,
-              anhChup39
             })
           })
         setLoading(false)
-        if (response.status === 201) {
-          handleDisplayMessage('Chúc mừng! Bạn đã gửi thông tin liên hệ thành công!', true)
+        if (response.status === 200) {
+          setShowPage4(false)
+          setShowPage5(true)
           contactFormRef?.current?.reset()
           setisUsedValue(null)
           setPhoneValue(undefined)
@@ -187,7 +184,6 @@ export default function Form(): ReactElement {
       setSuccessMessage(null)
       setErrorMessage(null)
       if (isSuccess) {
-        // router.push(ROUTES.HOME_PAGE)
       }
     }, 6000)
     return () => {
@@ -351,7 +347,7 @@ export default function Form(): ReactElement {
     setWhoareYouValue(e.target.value)
     setSelectedWhoareYou(e.target.value)
   }
-  
+
   const handleFamilyAre = (e) => {
     setFamilyAreValue(e.target.value)
     setSelectedFamilyAre(e.target.value)
@@ -390,7 +386,9 @@ export default function Form(): ReactElement {
     if ((phone && name && job && email && company && school && address && amount && familyName && familyPhone && duration) == null)
       return true
   }
-  
+  const onViewHomePage = () => {
+    window.location.reload();
+  }
   return (
     <>
       <div className={styles.Wrapper}>
@@ -458,7 +456,7 @@ export default function Form(): ReactElement {
           </div>
           <div style={{ display: isShowPage2 ? 'block' : 'none' }}>
             <div style={{ display: 'flex' }}>
-              <div style={{ width: '18px', cursor: 'pointer', margin: '0 8px'}}>
+              <div style={{ width: '18px', cursor: 'pointer', margin: '0 8px' }}>
                 <span
                   onClick={onClickBackPage1}
                 >
@@ -551,7 +549,7 @@ export default function Form(): ReactElement {
                     Mặt trước CMND/CCCD
                   </label>
                   <div>
-                  <SamplePhotosUploader
+                    <SamplePhotosUploader
                       onDataChange={v => setAnhChup(v)}
                       initialFiles={fileAnhChup}
                       setFiles={v => setFileAnhChup(v)}
@@ -564,7 +562,7 @@ export default function Form(): ReactElement {
                     Mặt sau CMND/CCCD
                   </label>
                   <div>
-                  <SamplePhotosUploader
+                    <SamplePhotosUploader
                       onDataChange={v => setAnhChup135(v)}
                       initialFiles={fileAnhChup135}
                       setFiles={v => setFileAnhChup135(v)}
@@ -578,7 +576,7 @@ export default function Form(): ReactElement {
                   Hình chân dung CMND/CCCD
                 </label>
                 <div>
-                <SamplePhotosUploader
+                  <SamplePhotosUploader
                     onDataChange={v => setAnhBan(v)}
                     initialFiles={fileAnhBan}
                     setFiles={v => setFileAnhBan(v)}
@@ -586,7 +584,7 @@ export default function Form(): ReactElement {
                   />
                 </div>
               </div>
-              
+
               <Button
                 text={'Tiếp tục'}
                 className={styles.submitBtn}
@@ -599,12 +597,12 @@ export default function Form(): ReactElement {
           <div style={{ display: isShowPage3 ? 'block' : 'none' }}>
             <div>
               <div style={{ display: 'flex' }}>
-                <div style={{ width: '18px', cursor: 'pointer', margin: '0 8px'}}>
-                <span
-                  onClick={onClickBackPage2}
-                >
-                  <BackIcon color="#080C21" />
-                </span>
+                <div style={{ width: '18px', cursor: 'pointer', margin: '0 8px' }}>
+                  <span
+                    onClick={onClickBackPage2}
+                  >
+                    <BackIcon color="#080C21" />
+                  </span>
                 </div>
                 <h3 className={styles.titlePages}>Đăng ký bảo trợ</h3>
               </div>
@@ -970,7 +968,7 @@ export default function Form(): ReactElement {
               }
               <div style={{ marginTop: '8px' }}>
                 <div>
-                  <ul style={{listStyleType: 'none'}}>
+                  <ul style={{ listStyleType: 'none' }}>
                     <li>· Nếu bạn là phụ huynh đăng ký cho con, vui lòng cung cấp số tham chiếu là vợ/chồng của bạn. </li>
                     <br />
                     <li>· Trong trường hợp đặc biệt hoặc bạn là học viên tự đứng tên, vui lòng cung cấp số tham chiếu là bố/mẹ hoặc anh/chị/em ruột.</li>
@@ -1036,8 +1034,8 @@ export default function Form(): ReactElement {
           </div>
           <div style={{ display: isShowPage4 ? 'block' : 'none' }}>
             <div style={{ display: 'flex' }}>
-              <div style={{ width: '18px', cursor: 'pointer',margin: '0 8px'}}>
-              <span
+              <div style={{ width: '18px', cursor: 'pointer', margin: '0 8px' }}>
+                <span
                   onClick={onClickBackPage3}
                 >
                   <BackIcon color="#080C21" />
@@ -1047,46 +1045,68 @@ export default function Form(): ReactElement {
 
             </div>
             <div>
-            <CheckInfo
-                isUsed={isUsed}
-                phone={phone}
-                email={email}
-                name={name}
-                address={address}
-                job={job}
-                company={company}
-                familyAre={familyAre}
-                familyName={familyName}
-                familyPhone={familyPhone}
-                whoAreYou={whoAreYou}
-                kidName={kidName}
-                kidPhone={kidPhone}
-                school={school}
-                studyType={studyType}
-                amount={amount}
-                duration={duration}
-                ambassador_code={ambassador_code}
-                anhChup={previewAnhChup}
-                anhChup135={previewAnhChup135}
-                anhBan={previewAnhBan}
-                hinhChup71={previewHinhChup71}
-                hinhChup72={previewHinhChup72}
-                anhChup24={previewanhChup24}
-                anhChup39={previewAnhChup39}
-              />
-              <Button
-                form='borrower-request-form'
-                text={'Đăng kí'}
-                className={styles.submitBtn}
-                onClick={handleSubmit}
-                disabled={false}
-                loading={isLoading}
-              />
-              {successMessage && <div className={styles.successPopup}>{successMessage}</div>}
-              {errorMessage && <div className={styles.errorPopup}>{errorMessage}</div>}
+              <div style={{marginBottom: '80px'}}>
+                <CheckInfo
+                  isUsed={isUsed}
+                  phone={phone}
+                  email={email}
+                  name={name}
+                  address={address}
+                  job={job}
+                  company={company}
+                  familyAre={familyAre}
+                  familyName={familyName}
+                  familyPhone={familyPhone}
+                  whoAreYou={whoAreYou}
+                  kidName={kidName}
+                  kidPhone={kidPhone}
+                  school={school}
+                  studyType={studyType}
+                  amount={amount}
+                  duration={duration}
+                  ambassador_code={ambassador_code}
+                  anhChup={previewAnhChup}
+                  anhChup135={previewAnhChup135}
+                  anhBan={previewAnhBan}
+                  hinhChup71={previewHinhChup71}
+                  hinhChup72={previewHinhChup72}
+                  anhChup24={previewanhChup24}
+                />
+                <Button
+                  form='borrower-request-form'
+                  text={'Đăng kí'}
+                  className={styles.submitBtn}
+                  onClick={handleSubmit}
+                  disabled={false}
+                  loading={isLoading}
+                />
+                {errorMessage && <div className={styles.errorPopup}>{errorMessage}</div>}
+              </div>
             </div>
           </div>
-
+          <div style={{ display: isShowPage5 ? 'block' : 'none' }}>
+            <div>
+              <div className={styles.imageWrapper}>
+                <img className={styles.image} src="/Rootopia-logo.svg" alt="logo" />
+              </div>
+              <div className={styles.title}><span>Chào mừng bạn đến với <span style={{ color: '#F476A7' }}>Rootopia</span></span></div>
+              <br />
+              <div style={{display: 'flex', justifyContent: 'center',flexWrap:'wrap'}}>
+                <div className={styles.imageWrapper}>
+                  <img src="/image-submit-success.svg" alt="image-submit-success" />
+                </div>
+                  <div style={{ display: 'flex',justifyContent: 'center', marginTop: '32px', fontSize: 24, lineHeight: '32px' ,width: '100%'}}>Gửi yêu cầu thành công!</div>
+                  <div style={{ display: 'flex',justifyContent: 'center', marginTop: '16px',marginBottom: '48px', fontSize: 16, lineHeight: '24px' ,width: '100%'}}>Cảm ơn bạn đã gửi yêu cầu tới Rootopia. Tư vấn viên sẽ liên hệ bạn trong vòng 24h.</div>
+              </div>
+            </div>
+            <Button
+                text={'Quay về trang chủ'}
+                className={styles.submitBtn}
+                onClick={onViewHomePage}
+                disabled={false}
+                loading={false}
+              />
+          </div>
         </form >
       </div >
     </>

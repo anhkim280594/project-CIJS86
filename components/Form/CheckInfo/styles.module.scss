@@ -1,5 +1,7 @@
 @import '/styles/utils/breakpoints';
+@import '/styles/utils/fonts.scss';
 .CheckInfo{
+    font-family: $openSans;
     font-weight: 700;
     font-size: 16px;
     line-height: 20px;
@@ -12,8 +14,14 @@
     .groupInfo{
         display: flex;
         justify-content: start;
+        @include breakpointMobileL {
+            display: block;
+        }
         .infoItem{
             width: 50%;
+            @include breakpointMobileL {
+                width: 100%;
+            }
         }
     }
     h4{ 
