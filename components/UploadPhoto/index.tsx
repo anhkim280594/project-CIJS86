@@ -3,16 +3,19 @@ import 'react-dropzone-uploader/dist/styles.css';
 import Dropzone from 'react-dropzone-uploader';
 import axios from 'axios';
 
-export default function SamplePhotosUploader(props: any): ReactElement {
-    const getUploadParams = async ({ file, meta: { name, type } }) => {
+
+export default function SamplePhotosUploader(props): ReactElement {
+    const getUploadParams = async ({ file, meta: { name, type, previewUrl } }) => {
         const data = await axios.post(`https://api-gateway.prod.rootopia.vn/forms/presigned-url`, {
             filename: name,
-            filetype: type
+            filetype: type,
         }
         ).then(res => res.data);
         const { fields, url, fileUrl } = data;
         props.onDataChange(fileUrl)
         props.setFiles([file])
+        props.setpreviewURL(previewUrl)
+        console.log('previewUrl',previewUrl)
         return { fields, meta: { url }, url: url }
     }
 
@@ -38,7 +41,7 @@ export default function SamplePhotosUploader(props: any): ReactElement {
                     inputContent="Nhấn vào đây và tải ảnh"
                     styles={{preview: {width: '100%', position: 'absolute'}, submitButton: {display: 'none'}, inputLabelWithFiles : {display: 'none'}, dropzone: {padding : '0 30px', margin: '8px 0', overflow: 'hidden'}}}
                 />
-                <span onClick={RemoveImg} style={{position: 'absolute',zIndex: '222',width: '30px', height: '30px',top: '33%',left: '85%',padding: '12px',cursor: 'pointer',}}>✕</span>
+                <span onClick={RemoveImg} style={{position: 'absolute',zIndex: '222',width: '32px',height: '32px',top: '33%',left: '85%',padding: '12px',cursor: 'pointer',}}>✕</span>
             </div>
         )
     }

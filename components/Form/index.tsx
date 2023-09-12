@@ -1,6 +1,5 @@
 
 import React, { ReactElement, useState, useRef } from 'react'
-// import { useRouter } from 'next/router';
 import Button from '../Button'
 import Input from '../Input'
 import styles from './styles.module.scss'
@@ -8,12 +7,10 @@ import schools from '../../constants/schools'
 import durations from '../../constants/duration'
 import InputSuggestion from '../InputSuggestion'
 import CheckInfo from './CheckInfo'
-// import DropImage from '../DropImage'
 import SamplePhotosUploader from '../../components/UploadPhoto'
 import BackIcon from '../../icons/BackIcon'
 
 export default function Form(): ReactElement {
-  // const router = useRouter()
   const contactFormRef = useRef(null)
   const [school, setSchoolValue] = useState(null)
   const [name, setNameValue] = useState(null)
@@ -39,7 +36,6 @@ export default function Form(): ReactElement {
   const [isUsed, setisUsedValue] = useState(null)
   const [selectedIsUsed, setSelectedIsUsed] = useState(null);
   const [bankingCards, setBackingCardsValue] = useState(null)
-  const [selectedBankingCards, setSelectedBankingCards] = useState(null);
   const [nameError, setNameError] = useState(null)
   const [jobError, setJobError] = useState(null)
   const [companyError, setCompanyError] = useState(null)
@@ -62,28 +58,28 @@ export default function Form(): ReactElement {
   const [isShowPage2, setShowPage2] = useState(false)
   const [isShowPage3, setShowPage3] = useState(false)
   const [isShowPage4, setShowPage4] = useState(false)
-  const [anhChup, setAnhChup] = useState([])
-  const [fileAnhChup, setFileAnhChup] = useState([])
-  const [anhChup135, setAnhChup135] = useState([])
-  const [fileAnhChup135, setFileAnhChup135] = useState([])
-  const [anhBan, setAnhBan] = useState([])
-  const [fileAnhBan, setFileAnhBan] = useState([])
-  const [hinhChup, setHinhChup71] = useState([])
-  const [fileHinhChup71, setFileHinhChup71] = useState([])
-  const [hinhChup72, setHinhChup72] = useState([])
-  const [fileHinhChup72, setFileHinhChup72] = useState([])
-  const [anhChup24, setAnhChup24] = useState([])
-  const [fileanhChup24, setFileanhChup24] = useState([])
-  const [anhChup39, setAnhChup39] = useState([])
-  const [fileAnhChup39, setFileAnhChup39] = useState([])
-  // const [commitmentType, setCommitmentType] = useState(router.query.commitment)
-
-  // useEffect(() => {
-  //   setCommitmentType(router.query.commitment)
-  // }, [router.query.commitment])
-
-  // const isShowingHigh = router.query.commitment === 'HIGH';
-  // const isShowingLow = router.query.commitment === 'LOW';
+  const [anhChup, setAnhChup] = useState(null)
+  const [fileAnhChup, setFileAnhChup] = useState(null)
+  const [previewAnhChup, setpreviewAnhChup] = useState(null)
+  const [anhChup135, setAnhChup135] = useState(null)
+  const [fileAnhChup135, setFileAnhChup135] = useState(null)
+  const [previewAnhChup135, setpreviewAnhChup135] = useState(null)
+  const [anhBan, setAnhBan] = useState(null)
+  const [fileAnhBan, setFileAnhBan] = useState(null)
+  const [previewAnhBan, setpreviewAnhBan] = useState(null)
+  const [hinhChup71, setHinhChup71] = useState(null)
+  const [fileHinhChup71, setFileHinhChup71] = useState(null)
+  const [previewHinhChup71, setpreviewHinhChup71] = useState(null)
+  const [hinhChup72, setHinhChup72] = useState(null)
+  const [fileHinhChup72, setFileHinhChup72] = useState(null)
+  const [previewHinhChup72, setpreviewHinhChup72] = useState(null)
+  const [anhChup24, setAnhChup24] = useState(null)
+  const [fileanhChup24, setFileanhChup24] = useState(null)
+  const [previewanhChup24, setpreviewanhChup24] = useState(null)
+  const [anhChup39, setAnhChup39] = useState(null)
+  const [fileAnhChup39, setFileAnhChup39] = useState(null)
+  const [previewAnhChup39, setpreviewAnhChup39] = useState(null)
+  
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     validateName()
@@ -135,11 +131,10 @@ export default function Form(): ReactElement {
               whoAreYou,
               studyType,
               isUsed,
-              bankingCards,
               anhChup,
               anhChup135,
               anhBan,
-              hinhChup,
+              hinhChup71,
               hinhChup72,
               anhChup24,
               anhChup39
@@ -356,10 +351,7 @@ export default function Form(): ReactElement {
     setWhoareYouValue(e.target.value)
     setSelectedWhoareYou(e.target.value)
   }
-  const handleBankingCards = (e) => {
-    setBackingCardsValue(e.target.value)
-    setSelectedBankingCards(e.target.value)
-  }
+  
   const handleFamilyAre = (e) => {
     setFamilyAreValue(e.target.value)
     setSelectedFamilyAre(e.target.value)
@@ -398,27 +390,7 @@ export default function Form(): ReactElement {
     if ((phone && name && job && email && company && school && address && amount && familyName && familyPhone && duration) == null)
       return true
   }
-  const handleAnhChup = (newData) => {
-    setAnhChup([newData])
-  }
-  const handleAnhChup135 = newData => {
-    setAnhChup135([newData])
-  }
-  const handleAnhBan = newData => {
-    setAnhBan([newData])
-  }
-  const handleHinhChup71 = newData => {
-    setHinhChup71([newData])
-  }
-  const handleHinhChup72 = newData => {
-    setHinhChup72([newData])
-  }
-  const handleanhChup24 = newData => {
-    setAnhChup24([newData])
-  }
-  const handleAnhChup39 = newData => {
-    setAnhChup39([newData])
-  }
+  
   return (
     <>
       <div className={styles.Wrapper}>
@@ -573,35 +545,17 @@ export default function Form(): ReactElement {
                   onChange={handleChangeSchool}
                 />
               </div>
-              {/* {
-                !(isShowingHigh || isShowingLow) ?
-                  <div>
-                    <label>Ảnh chụp 1 loại giấy tờ chứng minh nơi ở hiện tại</label>
-                    <div>
-                      <SamplePhotosUploader
-                        onDataChange={handleAnhChup39}
-                        initialFiles={fileAnhChup39}
-                        setFiles={(v) => setFileAnhChup39(v)}
-                      />
-                    </div>
-                    <label className={styles.note}>· Hóa đơn điện/nước/điện thoại/phí căn hộ (chụp ảnh màn hình nếu đóng tiền online) / Giấy tạm trú / Sổ tạm trú / Hợp đồng thuê nhà. Có thể gửi nhiều hình</label>
-                  </div>
-                  :
-                  null} */}
-
-              {/* <div className={styles.dropImage}>
-                <DropImage label={'Hướng dẫn chụp hình CMND/CCCD'} data={IMAGE_HUONG_DAN} dafaultOpen={false} />
-              </div> */}
               <div className={styles.groupBox}>
                 <div className={styles.groupItemBox}>
                   <label>
                     Mặt trước CMND/CCCD
                   </label>
                   <div>
-                    <SamplePhotosUploader
-                      onDataChange={handleAnhChup}
+                  <SamplePhotosUploader
+                      onDataChange={v => setAnhChup(v)}
                       initialFiles={fileAnhChup}
-                      setFiles={(v) => setFileAnhChup(v)}
+                      setFiles={v => setFileAnhChup(v)}
+                      setpreviewURL={v => setpreviewAnhChup(v)}
                     />
                   </div>
                 </div>
@@ -610,10 +564,11 @@ export default function Form(): ReactElement {
                     Mặt sau CMND/CCCD
                   </label>
                   <div>
-                    <SamplePhotosUploader
-                      onDataChange={handleAnhChup135}
+                  <SamplePhotosUploader
+                      onDataChange={v => setAnhChup135(v)}
                       initialFiles={fileAnhChup135}
-                      setFiles={(v) => setFileAnhChup135(v)}
+                      setFiles={v => setFileAnhChup135(v)}
+                      setpreviewURL={v => setpreviewAnhChup135(v)}
                     />
                   </div>
                 </div>
@@ -623,31 +578,15 @@ export default function Form(): ReactElement {
                   Hình chân dung CMND/CCCD
                 </label>
                 <div>
-                  <SamplePhotosUploader
-                    onDataChange={handleAnhBan}
+                <SamplePhotosUploader
+                    onDataChange={v => setAnhBan(v)}
                     initialFiles={fileAnhBan}
-                    setFiles={(v) => setFileAnhBan(v)}
+                    setFiles={v => setFileAnhBan(v)}
+                    setpreviewURL={v => setpreviewAnhBan(v)}
                   />
                 </div>
               </div>
-              {/* {!(isShowingHigh || isShowingLow) ?
-                <div>
-                  <span>Hiện tại, bạn có đang dùng thẻ tín dụng, hay dùng tài khoản ngân hàng để nhận lương/ kinh doanh buôn bán không?</span>
-                  <div className={styles.radio}>
-                    <input type="radio" id='BankingCards' name='BankingCards' value='Có sử dụng thẻ tín dụng' onClick={handleBankingCards} checked={selectedBankingCards === 'Có sử dụng thẻ tín dụng'} />
-                    <label>Có sử dụng thẻ tín dụng</label>
-                  </div>
-                  <div className={styles.radio}>
-                    <input type="radio" id='BankingCards' name='BankingCards' value='Chỉ có tài khoản ngân hàng' onClick={handleBankingCards} checked={selectedBankingCards === 'Chỉ có tài khoản ngân hàng'} />
-                    <label>Chỉ có tài khoản ngân hàng</label>
-                  </div>
-                  <div className={styles.radio}>
-                    <input type="radio" id='BankingCards' name='BankingCards' value='Không sử dụng cả hai' onClick={handleBankingCards} checked={selectedBankingCards === 'Không sử dụng cả hai'} />
-                    <label>Không sử dụng cả hai</label>
-                  </div>
-                </div>
-                :
-                null} */}
+              
               <Button
                 text={'Tiếp tục'}
                 className={styles.submitBtn}
@@ -719,18 +658,20 @@ export default function Form(): ReactElement {
                       <div className={styles.groupItemBox}>
                         <label>Hình chụp giấy khai sinh của người học</label>
                         <SamplePhotosUploader
-                          onDataChange={handleHinhChup71}
+                          onDataChange={v => setHinhChup71(v)}
                           initialFiles={fileHinhChup71}
                           setFiles={v => setFileHinhChup71(v)}
+                          setpreviewURL={v => setpreviewHinhChup71(v)}
                         />
                         <div></div>
                       </div>
                       <div className={styles.groupItemBox}>
                         <label>Ảnh chụp chân dung người học</label>
                         <SamplePhotosUploader
-                          onDataChange={handleHinhChup72}
+                          onDataChange={v => setHinhChup72(v)}
                           initialFiles={fileHinhChup72}
-                          setFiles={(v) => setFileHinhChup72(v)}
+                          setFiles={v => setFileHinhChup72(v)}
+                          setpreviewURL={v => setpreviewHinhChup72(v)}
                         />
                       </div>
                     </div>
@@ -759,9 +700,10 @@ export default function Form(): ReactElement {
                     <div style={{ marginTop: '8px' }}>
                       <label>Ảnh chụp thông báo đóng học phí phát hành bởi Cơ sở giáo dục</label>
                       <SamplePhotosUploader
-                        onDataChange={handleanhChup24}
+                        onDataChange={v => setAnhChup24(v)}
                         initialFiles={fileanhChup24}
-                        setFiles={(v) => setFileanhChup24(v)}
+                        setFiles={v => setFileanhChup24(v)}
+                        setpreviewURL={v => setpreviewanhChup24(v)}
                       />
                       <p className={styles.note}>· Thể hiện rõ: Ngân hàng, Chi nhánh, Số tài khoản, Tên người thụ hưởng, Nội dung chuyển khoản.</p>
                     </div>
@@ -837,9 +779,10 @@ export default function Form(): ReactElement {
                     <div style={{ marginTop: '8px' }}>
                       <label>Ảnh chụp thông báo đóng học phí phát hành bởi Cơ sở giáo dục</label>
                       <SamplePhotosUploader
-                        onDataChange={handleanhChup24}
+                        onDataChange={v => setAnhChup24(v)}
                         initialFiles={fileanhChup24}
-                        setFiles={(v) => setFileanhChup24(v)}
+                        setFiles={v => setFileanhChup24(v)}
+                        setpreviewURL={v => setpreviewanhChup24(v)}
                       />
                       <p className={styles.note}>· Thể hiện rõ: Ngân hàng, Chi nhánh, Số tài khoản, Tên người thụ hưởng, Nội dung chuyển khoản.</p>
                     </div>
@@ -933,17 +876,19 @@ export default function Form(): ReactElement {
                         <div className={styles.groupItemBox}>
                           <label>Hình chụp giấy khai sinh của người học</label>
                           <SamplePhotosUploader
-                            onDataChange={handleHinhChup71}
+                            onDataChange={v => setHinhChup71(v)}
                             initialFiles={fileHinhChup71}
-                            setFiles={(v) => setFileHinhChup71(v)}
+                            setFiles={v => setFileHinhChup71(v)}
+                            setpreviewURL={v => setpreviewHinhChup71(v)}
                           />
                         </div>
                         <div className={styles.groupItemBox}>
                           <label>Ảnh chụp chân dung người học</label>
                           <SamplePhotosUploader
-                            onDataChange={handleHinhChup72}
+                            onDataChange={v => setHinhChup72(v)}
                             initialFiles={fileHinhChup72}
-                            setFiles={(v) => setFileHinhChup72(v)}
+                            setFiles={v => setFileHinhChup72(v)}
+                            setpreviewURL={v => setpreviewHinhChup72(v)}
                           />
                         </div>
                       </div>
@@ -973,9 +918,10 @@ export default function Form(): ReactElement {
                     <div style={{ marginTop: '8px' }}>
                       <label>Ảnh chụp thông báo đóng học phí phát hành bởi Cơ sở giáo dục</label>
                       <SamplePhotosUploader
-                        onDataChange={handleanhChup24}
+                        onDataChange={v => setAnhChup24(v)}
                         initialFiles={fileanhChup24}
-                        setFiles={(v) => setFileanhChup24(v)}
+                        setFiles={v => setFileanhChup24(v)}
+                        setpreviewURL={v => setpreviewanhChup24(v)}
                       />
                       <p className={styles.note}>· Thể hiện rõ: Ngân hàng, Chi nhánh, Số tài khoản, Tên người thụ hưởng, Nội dung chuyển khoản.</p>
                     </div>
@@ -1024,7 +970,7 @@ export default function Form(): ReactElement {
               }
               <div style={{ marginTop: '8px' }}>
                 <div>
-                  <ul>
+                  <ul style={{listStyleType: 'none'}}>
                     <li>· Nếu bạn là phụ huynh đăng ký cho con, vui lòng cung cấp số tham chiếu là vợ/chồng của bạn. </li>
                     <br />
                     <li>· Trong trường hợp đặc biệt hoặc bạn là học viên tự đứng tên, vui lòng cung cấp số tham chiếu là bố/mẹ hoặc anh/chị/em ruột.</li>
@@ -1101,7 +1047,7 @@ export default function Form(): ReactElement {
 
             </div>
             <div>
-              <CheckInfo
+            <CheckInfo
                 isUsed={isUsed}
                 phone={phone}
                 email={email}
@@ -1120,12 +1066,13 @@ export default function Form(): ReactElement {
                 amount={amount}
                 duration={duration}
                 ambassador_code={ambassador_code}
-                anhChup={anhChup[0]}
-                anhChup135={anhChup135[0]}
-                anhBan={anhBan[0]}
-                hinhChup={hinhChup[0]}
-                anhChup24={anhChup24[0]}
-                anhChup39={anhChup39[0]}
+                anhChup={previewAnhChup}
+                anhChup135={previewAnhChup135}
+                anhBan={previewAnhBan}
+                hinhChup71={previewHinhChup71}
+                hinhChup72={previewHinhChup72}
+                anhChup24={previewanhChup24}
+                anhChup39={previewAnhChup39}
               />
               <Button
                 form='borrower-request-form'
