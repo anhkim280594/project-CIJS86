@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import SpinnerIcon from '../../icons/SpinnerIcon'
 import styles from './styles.module.scss'
 
 interface Props {
@@ -8,12 +7,10 @@ interface Props {
   btnClass?: string;
   className?: string;
   onClick: any,
-  isSubmit?: boolean,
+  isSubmit: boolean,
   icon?: string;
   form?: string;
-  disabled: boolean;
-  loading: boolean;
-  isMainColor?: boolean;
+  disabled: boolean
 }
 
 function Button({
@@ -24,30 +21,36 @@ function Button({
   isSubmit,
   icon,
   form,
-  isMainColor,
-  disabled,
-  loading
+  disabled
 }: Props): ReactElement {
+  if (isSubmit) {
+    return (
+      <input
+        form={form}
+        type='submit'
+        value={text || undefined}
+        className={`${styles.buttonNoColor} ${className} pointer`}
+        id={id}
+        onClick={onClick}
+        disabled={disabled}
+      />
+    )
+  }
   return (
     <button
-      className={`${styles.button} ${className} ${isMainColor ? 'mainColor' : null} pointer`}
+      className={`${styles.buttonNoColor} ${className} pointer`}
+      type={'button'}
       onClick={onClick}
-      type='submit'
       id={id}
-      disabled={loading || disabled}
+      disabled={disabled}
     >
-      {icon && !loading && (
+      {icon && (
         <picture>
           <source srcSet={icon} type='image/webp' />
           <img data-src={icon} alt={text} />
         </picture>
       )}
       {text}
-      {loading && (
-        <span className={styles.btnIconWrapper}>
-          <SpinnerIcon />
-        </span>
-      )}
     </button>
   )
 }

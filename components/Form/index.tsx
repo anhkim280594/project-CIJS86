@@ -451,7 +451,7 @@ export default function Form(): ReactElement {
               className={styles.submitBtn}
               onClick={onClickNextPage2}
               disabled={false}
-              loading={false}
+              isSubmit={false}
             />
           </div>
           <div style={{ display: isShowPage2 ? 'block' : 'none' }}>
@@ -584,13 +584,12 @@ export default function Form(): ReactElement {
                   />
                 </div>
               </div>
-
               <Button
                 text={'Tiếp tục'}
                 className={styles.submitBtn}
                 onClick={onClickNextPage3}
                 disabled={false}
-                loading={false}
+                isSubmit={false}
               />
             </div>
           </div >
@@ -1028,7 +1027,7 @@ export default function Form(): ReactElement {
                 className={styles.submitBtn}
                 onClick={onClickNextPage4}
                 disabled={isDisabled()}
-                loading={false}
+                isSubmit={false}
               />
             </div>
           </div>
@@ -1045,7 +1044,7 @@ export default function Form(): ReactElement {
 
             </div>
             <div>
-              <div style={{marginBottom: '80px'}}>
+              <div style={{ marginBottom: '80px' }}>
                 <CheckInfo
                   isUsed={isUsed}
                   phone={phone}
@@ -1078,29 +1077,29 @@ export default function Form(): ReactElement {
                   className={styles.submitBtn}
                   onClick={handleSubmit}
                   disabled={false}
-                  loading={isLoading}
+                  isSubmit={false}
                 />
+
                 {errorMessage && <div className={styles.errorPopup}>{errorMessage}</div>}
               </div>
             </div>
           </div>
           <div style={{ display: isShowPage5 ? 'block' : 'none' }}>
             <div>
-              <div style={{display: 'flex', justifyContent: 'center',flexWrap:'wrap'}}>
+              <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
                 <div className={styles.imageWrapper}>
                   <img src="/image-submit-success.svg" alt="image-submit-success" />
                 </div>
-                  <div style={{ display: 'flex',justifyContent: 'center', marginTop: '32px', fontSize: 24, lineHeight: '32px' ,width: '100%'}}>Gửi yêu cầu thành công!</div>
-                  <div style={{ display: 'flex',justifyContent: 'center', marginTop: '16px',marginBottom: '48px', fontSize: 16, lineHeight: '24px' ,width: '100%'}}>Cảm ơn bạn đã gửi yêu cầu tới Rootopia. Tư vấn viên sẽ liên hệ bạn trong vòng 24h.</div>
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '32px', fontSize: 24, lineHeight: '32px', width: '100%' }}>Gửi yêu cầu thành công!</div>
               </div>
             </div>
             <Button
-                text={'Quay về trang chủ'}
-                className={styles.submitBtn}
-                onClick={onViewHomePage}
-                disabled={false}
-                loading={false}
-              />
+              text={'Tiếp tục'}
+              className={styles.submitBtn}
+              onClick={onViewHomePage}
+              disabled={false}
+              isSubmit={false}
+            />
           </div>
         </form >
       </div >
