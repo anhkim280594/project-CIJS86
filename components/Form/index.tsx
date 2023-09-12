@@ -675,10 +675,27 @@ export default function Form(): ReactElement {
                     <div>
                       <h3 style={{ marginBottom: '8px' }}> Thông tin học phí</h3>
                     </div>
-                    <div>
-                      <label>Trường học/ Trung tâm giáo dục bạn đăng ký</label>
-                      <div style={{ background: '#E4E6EC', border: 'none', borderRadius: '8px', padding: '16px', margin: '8px 0' }}>{school}</div>
-                    </div>
+                    {school ?
+                      <div>
+                        <label>Trường học/ Trung tâm giáo dục bạn đăng ký</label>
+                        <div style={{ background: '#E4E6EC', border: 'none', borderRadius: '8px', padding: '16px', margin: '8px 0' }}>{school}</div>
+                      </div>
+                      :
+                      <div className={styles.containerChooseSchool}>
+                        <label className={styles.sponsorInfoLabel}>Hãy điền tên trường bạn muốn được bảo trợ</label>
+                        <InputSuggestion
+                          type='text'
+                          name='school'
+                          listId='schoolList'
+                          id='school'
+                          value={school}
+                          className={styles.suggestionInput}
+                          placeholder={'Hãy chọn/nhập trường'}
+                          data={schoolData}
+                          onChange={handleChangeSchool}
+                        />
+                      </div>
+                    }
                     <div>
                       <p>Hình thức học</p>
                       <div className={styles.radio}>
@@ -754,10 +771,27 @@ export default function Form(): ReactElement {
                     <div>
                       <h3 style={{ marginBottom: '8px' }}> Thông tin học phí</h3>
                     </div>
-                    <div>
-                      <label>Trường học/ Trung tâm giáo dục bạn đăng ký</label>
-                      <div style={{ background: '#E4E6EC', border: 'none', borderRadius: '8px', padding: '16px', margin: '8px 0' }}>{school}</div>
-                    </div>
+                    {school ?
+                      <div>
+                        <label>Trường học/ Trung tâm giáo dục bạn đăng ký</label>
+                        <div style={{ background: '#E4E6EC', border: 'none', borderRadius: '8px', padding: '16px', margin: '8px 0' }}>{school}</div>
+                      </div>
+                      :
+                      <div className={styles.containerChooseSchool}>
+                        <label className={styles.sponsorInfoLabel}>Hãy điền tên trường bạn muốn được bảo trợ</label>
+                        <InputSuggestion
+                          type='text'
+                          name='school'
+                          listId='schoolList'
+                          id='school'
+                          value={school}
+                          className={styles.suggestionInput}
+                          placeholder={'Hãy chọn/nhập trường'}
+                          data={schoolData}
+                          onChange={handleChangeSchool}
+                        />
+                      </div>
+                    }
                     <div>
                       <p>Hình thức học</p>
                       <div className={styles.radio}>
@@ -893,10 +927,27 @@ export default function Form(): ReactElement {
                     <div>
                       <h3 style={{ marginBottom: '8px' }}> Thông tin học phí</h3>
                     </div>
-                    <div>
-                      <label>Trường học/ Trung tâm giáo dục bạn đăng ký</label>
-                      <div style={{ background: '#E4E6EC', border: 'none', borderRadius: '8px', padding: '16px', margin: '8px 0' }}>{school}</div>
-                    </div>
+                    {school ?
+                      <div>
+                        <label>Trường học/ Trung tâm giáo dục bạn đăng ký</label>
+                        <div style={{ background: '#E4E6EC', border: 'none', borderRadius: '8px', padding: '16px', margin: '8px 0' }}>{school}</div>
+                      </div>
+                      :
+                      <div className={styles.containerChooseSchool}>
+                        <label className={styles.sponsorInfoLabel}>Hãy điền tên trường bạn muốn được bảo trợ</label>
+                        <InputSuggestion
+                          type='text'
+                          name='school'
+                          listId='schoolList'
+                          id='school'
+                          value={school}
+                          className={styles.suggestionInput}
+                          placeholder={'Hãy chọn/nhập trường'}
+                          data={schoolData}
+                          onChange={handleChangeSchool}
+                        />
+                      </div>
+                    }
                     <div>
                       <p>Hình thức học</p>
                       <div className={styles.radio}>
