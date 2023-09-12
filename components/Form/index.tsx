@@ -1027,7 +1027,7 @@ export default function Form(): ReactElement {
                 text={'Tiếp tục'}
                 className={styles.submitBtn}
                 onClick={onClickNextPage4}
-                disabled={false}
+                disabled={isDisabled()}
                 loading={false}
               />
             </div>
@@ -1086,11 +1086,6 @@ export default function Form(): ReactElement {
           </div>
           <div style={{ display: isShowPage5 ? 'block' : 'none' }}>
             <div>
-              <div className={styles.imageWrapper}>
-                <img className={styles.image} src="/Rootopia-logo.svg" alt="logo" />
-              </div>
-              <div className={styles.title}><span>Chào mừng bạn đến với <span style={{ color: '#F476A7' }}>Rootopia</span></span></div>
-              <br />
               <div style={{display: 'flex', justifyContent: 'center',flexWrap:'wrap'}}>
                 <div className={styles.imageWrapper}>
                   <img src="/image-submit-success.svg" alt="image-submit-success" />
